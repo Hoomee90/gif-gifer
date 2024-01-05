@@ -1,7 +1,7 @@
 {
-  "name": "name",
+  "name": "giphy-gipher",
   "version": "1.0.0",
-  "description": "",
+  "description": "gif site for gifs",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=development",
