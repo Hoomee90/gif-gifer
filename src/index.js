@@ -10,10 +10,40 @@ function httpGet(url, callback) {
   request.addEventListener("loadend", () => {
     
     if (request.status === 200) {
-      callback(JSON.parse(request.responseText));
+      callback(request.responseText);
     }
   });
 
   request.open("GET", url, true);
   request.send();
+
+  return;
 }
+
+// UI Logic
+
+// callback for the top 8 GIFs of search
+function tenorSearch(responseText) {
+  const responseObject = JSON.parse(responseText);
+  const topGifs = responseObject["results"];
+
+  // load the first GIFs in preview size (nanogif) and share size (gif)
+
+  document.querySelector("#preview-gif").src = topGifs[0]["media_formats"]["nanogif"]["url"];
+  document.querySelector("#share-gif").src = topGifs[0]["media_formats"]["gif"]["url"];
+
+  return;
+}
+
+function getData() {
+  const apiKey = process.env.API_KEY;
+  const clientKey = "gif-gifer-project";
+  const limit = 8;
+  const searchTerm = "test";
+
+  const searchUrl = `https://tenor.googleapis.com/v2/search?q=${searchTerm}&key=${apiKey}&client_key=${clientKey}&limit=${limit}`;
+
+  httpGet(searchUrl, tenorSearch);
+}
+
+getData();
