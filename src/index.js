@@ -45,6 +45,8 @@ function displayTenorSearch(responseText) {
     thumbnailGroup[i].fullGif = topGifs[i]["media_formats"]["gif"]["url"];
   }
 
+  document.querySelector("div.images").classList.remove("d-none");
+
   return;
 }
 
@@ -52,16 +54,19 @@ function handleSubmit(e) {
   e.preventDefault();
 
   const input = document.querySelector("#search-input");
+  const fullImage = document.querySelector("#full-gif");
+  
+  fullImage.classList.add("d-none");
   getData(input.value, displayTenorSearch);
-  document.querySelector("div.images").classList.remove("d-none");
 
   e.target.reset();
 }
 
 function displayFull(e) {
-  const image = document.querySelector("#full-gif");
-  if (e.target.fullGif !== image.src) {
-    image.src = e.target.fullGif;
+  const fullImage = document.querySelector("#full-gif");
+  if (e.target.fullGif !== fullImage.src) {
+    fullImage.src = e.target.fullGif;
+    fullImage.classList.remove("d-none");
   }
 }
 
