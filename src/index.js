@@ -28,8 +28,13 @@ function tenorSearch(responseText) {
   const topGifs = responseObject["results"];
 
   // load the first GIFs in preview size (nanogif) and share size (gif)
+  
+  const thumbnailGroup =  document.querySelector("div#preview-gifs");
 
-  document.querySelector("#preview-gif").src = topGifs[0]["media_formats"]["nanogif"]["url"];
+  for (let i = 0; i < 8; i++) {
+    thumbnailGroup.children[i].src = topGifs[i]["media_formats"]["nanogif"]["url"];
+  }
+  
   document.querySelector("#share-gif").src = topGifs[0]["media_formats"]["gif"]["url"];
 
   return;
@@ -39,7 +44,7 @@ function getData() {
   const apiKey = process.env.API_KEY;
   const clientKey = "gif-gifer-project";
   const limit = 8;
-  const searchTerm = "test";
+  const searchTerm = "pmmm";
 
   const searchUrl = `https://tenor.googleapis.com/v2/search?q=${searchTerm}&key=${apiKey}&client_key=${clientKey}&limit=${limit}`;
 
