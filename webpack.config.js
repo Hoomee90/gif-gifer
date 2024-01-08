@@ -21,7 +21,7 @@ module.exports = {
       template: './src/index.html',
       inject: 'body'
     }),
-    new Dotenv()
+    new Dontev()
   ],
   module: {
     rules: [
