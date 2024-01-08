@@ -29,10 +29,10 @@ function tenorSearch(responseText) {
 
   // load the first GIFs in preview size (nanogif) and share size (gif)
   
-  const thumbnailGroup =  document.querySelector("div#preview-gifs");
+  const thumbnailGroup = document.querySelectorAll("img.preview");
 
   for (let i = 0; i < 8; i++) {
-    thumbnailGroup.children[i].src = topGifs[i]["media_formats"]["nanogif"]["url"];
+    thumbnailGroup[i].src = topGifs[i]["media_formats"]["nanogif"]["url"];
   }
   
   document.querySelector("#share-gif").src = topGifs[0]["media_formats"]["gif"]["url"];
