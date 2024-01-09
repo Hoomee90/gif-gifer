@@ -11,7 +11,6 @@ function httpGet(url, callback) {
     if (request.status === 200) {
       callback(request.responseText);
     } else {
-      console.log(JSON.parse(request.responseText)["error"])
       throw new Error(`An exception has occurred: ${request.status} ${JSON.parse(request.responseText)["error"]["message"]}`);
     }
   });
@@ -23,7 +22,7 @@ function httpGet(url, callback) {
 }
 
 function getData(searchTerm, callback) {
-  const apiKey = "process.env.API_KEY";
+  const apiKey = process.env.API_KEY;
   const clientKey = "gif-gifer-project";
   const limit = 8;
 
