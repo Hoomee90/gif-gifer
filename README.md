@@ -1,36 +1,34 @@
-# _{Application Name}_
+# Gif Gifer
 
 #### By **Samantha Callie**
 
-#### _{Brief description of application}_
+#### Search up gifs from [Tenor.com](https://tenor.com/)
 
 ## Technologies Used
 
 * HTML
 * JS
+* BootStrap
 * Webpack
-* Jest
-* _{other stuff too}_
+* Tenor API
 
 ## Description
 
-_{I really hope you understand what a description is.}_
+This site allows users to search up gifs based on text input. It will display the top eight results, which can be enlarged by clicking on them. That's it.
 
 ## Setup/Installation Requirements
 
 * Clone repository
-* Using your favorite command line console, run `npm run build` (requires npm) in the top level directory
+* Using your favorite command line console, run `npm i` (requires npm), 
+* Navigate to the top level of the directory and create an .env file
+* Obtain a Tenor API key by following the instructions from [here](https://tenor.com/gifapi)
+* type API_KEY= and then your API key into your .env file
+* run `npm run build` in the top level directory
 * Navigate to the newly-generated scr directory and open index.html
-* _and all_
-* _the other_
-* _instructions_
-
-_{awawawaw why do I need to spend so much effort writing the setup instructions just run it dunkass.}_
 
 ## Known Bugs
 
-* _Any known issues_
-*  _go here_
+* There are no known bugs at this time
 
 ## License
 
