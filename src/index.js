@@ -1,42 +1,19 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// Business Logic
-
-function httpGet(url, callback) {
-  let request = new XMLHttpRequest();
-
-  request.addEventListener("loadend", () => {
-    
-    if (request.status === 200) {
-      callback(request.responseText);
-    } else {
-      throw new Error(`An exception has occurred: ${request.status} ${JSON.parse(request.responseText)["error"]["message"]}`);
-    }
-  });
-
-  request.open("GET", url, true);
-  request.send();
-
-  return;
-}
-
-function getData(searchTerm, callback) {
-  const apiKey = process.env.API_KEY;
-  const clientKey = "gif-gifer-project";
-  const limit = 8;
-
-  const searchUrl = `https://tenor.googleapis.com/v2/search?q=${searchTerm}&key=${apiKey}&client_key=${clientKey}&limit=${limit}`;
-
-  httpGet(searchUrl, callback);
-}
+import Tenor from './tenor.js'
 
 // UI Logic
 
-// callback for the top 8 GIFs of search
-function displayTenorSearch(responseText) {
-  const responseObject = JSON.parse(responseText);
-  const topGifs = responseObject["results"];
+function displayFull(e) {
+  const fullImage = document.querySelector("#full-gif");
+  if (e.target.fullGif !== fullImage.src) {
+    fullImage.src = e.target.fullGif;
+    fullImage.classList.remove("d-none");
+  }
+}
+
+function displayTenorSearch(response) {
+  const topGifs = response["results"];
 
   // load the first GIFs in preview size (nanogif) and share size (gif)
   
@@ -48,32 +25,17 @@ function displayTenorSearch(responseText) {
   }
 
   document.querySelector("div.images").classList.remove("d-none");
-
-  return;
 }
 
 function handleSubmit(e) {
   e.preventDefault();
 
   const input = document.querySelector("#search-input");
-  const fullImage = document.querySelector("#full-gif");
-  
-  fullImage.classList.add("d-none");
-  try {
-    getData(input.value, displayTenorSearch);
-  } catch (e) {
-    console.error(e);
-  }
+  document.querySelector("#full-gif").classList.add("d-none");
+  let promise = Tenor.getTenor(input.value);
+  promise.then(response => displayTenorSearch(response), error => console.error(error));
 
   e.target.reset();
-}
-
-function displayFull(e) {
-  const fullImage = document.querySelector("#full-gif");
-  if (e.target.fullGif !== fullImage.src) {
-    fullImage.src = e.target.fullGif;
-    fullImage.classList.remove("d-none");
-  }
 }
 
 document.querySelector("form#search").addEventListener("submit", handleSubmit);
